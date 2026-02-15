@@ -94,9 +94,17 @@ export function configCommoditiesRoutes(router: Router) {
 
 
     const result = await dbConnection.query(`DELETE FROM commodities WHERE id = ${commodityId} RETURNING *`);
+    const rows = result.rows;
+
+    if(rows.length === 0){
+      return res.status(404).json({
+        message: `Commodity with id ${commodityId} was not found`
+      })
+    }
+
     return res.status(200).json({
       message: "DELETED",
-      data: result.rows,
+      data: rows[0],
     });
   });
 }
