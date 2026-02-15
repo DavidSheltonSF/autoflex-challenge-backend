@@ -35,6 +35,20 @@ export function configProductsRoutes(router: Router) {
     });
   });
 
+  router.get('/products/:id', async (req: Request, res: Response) => {
+    const productId = req.params.id;
+    if (!productId) {
+      return res.status(400).json({
+        message: 'Missing product id',
+      });
+    }
+
+    const result = await dbConnection.query(`SELECT * FROM product WHERE id = ${productId}`);
+    return res.status(200).json({
+      data: result.rows,
+    });
+  });
+
   router.put('/products/:id', async (req: Request, res: Response) => {
     const productId = req.params.id;
 
