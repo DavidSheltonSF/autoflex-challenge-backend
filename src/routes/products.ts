@@ -72,14 +72,15 @@ export function configProductsRoutes(router: Router) {
     }
 
     const query = {
-      text: `UPDATE products SET code =  $1, name = $2, price = $3 WHERE id = ${productId}`,
+      text: `UPDATE products SET code =  $1, name = $2, price = $3 WHERE id = ${productId} RETURNING *`,
       values: [code, name, price],
     };
 
-    await dbConnection.query(query);
+    const result = await dbConnection.query(query);
 
     return res.status(200).json({
-      message: 'updated',
+      message: 'UPDATED',
+      data: result.rows
     });
   });
 
