@@ -2,26 +2,37 @@
 import { Product } from '@/types/Product';
 import { ProductCard } from './ProductCard';
 import { AddButton } from './AddButton';
-import { BaseModal } from './modals/BaseModal';
 import { AddProductModalContext } from '@/contexts/AddProductModalContext';
 import { useContext } from 'react';
 import { AddProductModal } from './modals/AddProductModal';
+import { ProductCardSkelton } from './ProductCardSkeleton';
 
 interface Props {
   products: Product[];
+  isLoading: boolean;
 }
 
-export function ProductsList({ products }: Props) {
+export function ProductsList({ products, isLoading }: Props) {
   const renderProducts = products.map((product, index) => {
     return <ProductCard key={index} {...product} />;
   });
 
+  const renderSkeleton = () => {
+    const skeletons = [];
+
+    for (let i = 0; i < 4; i++) {
+      skeletons.push(<ProductCardSkelton key={i} />);
+    }
+
+    return skeletons;
+  };
+
   const context = useContext(AddProductModalContext);
-  if(!context){
+  if (!context) {
     throw Error('Missing AddProductModalContext');
   }
 
-  const {isOpen, setIsOpen} = context;
+  const { isOpen, setIsOpen } = context;
 
   return (
     <div className="flex flex-col gap-[24px] w-full">
@@ -29,11 +40,11 @@ export function ProductsList({ products }: Props) {
         label="Add new Product"
         width="180px"
         onClick={() => {
-          setIsOpen(!isOpen)
+          setIsOpen(!isOpen);
         }}
       />
-      <AddProductModal/>
-      <div>{renderProducts}</div>
+      <AddProductModal />
+      <div>{isLoading ? renderSkeleton() : renderProducts}</div>
     </div>
   );
 }
