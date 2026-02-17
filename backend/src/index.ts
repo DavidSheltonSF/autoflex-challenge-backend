@@ -2,8 +2,10 @@ import express, { type Request, type Response } from 'express';
 import { PostgreHelper } from './database/database';
 import cookieParser from 'cookie-parser';
 import { configRouter } from './routes/configRouter';
+import cors from 'cors';
 
 export const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(configRouter());
