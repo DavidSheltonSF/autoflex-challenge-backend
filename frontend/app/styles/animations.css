@@ -7,6 +7,19 @@
   }
 }
 
+@keyframes fade-out {
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 .fade-in-animation {
-  animation: fade-in 300ms ease ;
+  animation: fade-in 300ms ease;
+}
+
+.fade-out-animation {
+  animation: fade-out 300ms ease;
 }
