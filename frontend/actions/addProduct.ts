@@ -1,8 +1,9 @@
 import { fetchAddProduct } from '@/services/fetchAddProduct';
-import { FormState } from '@/types/FormState';
+import { FechingState } from '@/types/FechingState';
+import { Product } from '@/types/Product';
 import { RequestStatus } from '@/types/RequestStatus';
 
-export async function addProduct(formData: FormData): Promise<FormState> {
+export async function addProduct(formData: FormData): Promise<FechingState<null>> {
   try {
     const code = formData.get('code');
     const name = formData.get('name');
