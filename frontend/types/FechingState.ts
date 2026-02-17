@@ -1,6 +1,6 @@
 import { RequestStatus } from './RequestStatus';
 
-export interface FormState<T> {
+export interface FechingState<T> {
   status: RequestStatus;
   message?: string;
   data?: T;
