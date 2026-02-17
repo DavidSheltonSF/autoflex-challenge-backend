@@ -1,7 +1,33 @@
-import { products } from '@/fakeData/products';
+'use client';
+
+import { useEffect, useState } from 'react';
 import { ProductsList } from '../ProductsList';
+import { fetchProducts } from '@/services/fetchProducts';
+import { Product } from '@/types/Product';
+import { FechingState } from '@/types/FechingState';
+import { RequestStatus } from '@/types/RequestStatus';
 
 export function ProductsSection() {
+  const [fetching, setFeching] = useState<FechingState<Product[]>>({
+    status: RequestStatus.loading,
+    data: [],
+  });
+
+  const isLoading = fetching.status === RequestStatus.loading ? true : false;
+
+  useEffect(() => {
+    async function loadProducts() {
+      try {
+        setFeching({ status: RequestStatus.loading });
+        const products = await fetchProducts();
+        setFeching({ status: RequestStatus.ok, data: products });
+      } catch (error) {
+        console.log(error);
+        setFeching({ status: RequestStatus.error });
+      }
+    }
+    loadProducts();
+  }, []);
   return (
     <div className="flex flex-col gap-[24px]">
       <div>
@@ -10,7 +36,7 @@ export function ProductsSection() {
         </div>
       </div>
 
-      <ProductsList products={products} />
+      <ProductsList products={fetching.data || []} isLoading={isLoading} />
     </div>
   );
 }
