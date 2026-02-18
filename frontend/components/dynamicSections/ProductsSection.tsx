@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ProductsList } from '../ProductsList';
+import { ProductsList } from '../lists/ProductsList';
 import { fetchProducts } from '@/services/fetchProducts';
 import { Product } from '@/types/Product';
 import { FechingState } from '@/types/FechingState';
