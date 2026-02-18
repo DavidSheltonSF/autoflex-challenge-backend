@@ -13,6 +13,7 @@ export function ProductForm({ formAction, buttonLabel, data }: Props) {
         name="code"
         className="w-full min-lg:w-[116px] border rounded-md py-[4px] px-[8px]"
         placeholder="code"
+        maxLength={8}
         value={data?.code}
       />
       <input
