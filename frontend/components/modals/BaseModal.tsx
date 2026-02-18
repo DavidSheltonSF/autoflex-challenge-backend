@@ -1,4 +1,4 @@
-import { ReactNode, useContext, useRef } from 'react';
+import { ReactNode, useRef } from 'react';
 import { CloseIcon } from '../icons/CloseIcon';
 
 interface Props {
