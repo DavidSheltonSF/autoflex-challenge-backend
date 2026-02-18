@@ -53,7 +53,7 @@ export function configCommoditiesRoutes(router: Router) {
      }
      
     return res.status(200).json({
-      data: result.rows,
+      data: rows[0],
     });
   });
 
