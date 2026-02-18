@@ -33,7 +33,7 @@ export function DeleteProductModal({ message }: Props) {
 
   return (
     isOpen && (
-      <BaseModal close={() => setIsOpen(false)} height="25vh" width="60vw">
+      <BaseModal close={() => setIsOpen(false)} additionalStyles='h-[25vh] w-[60vw] min-lg:w-[332px]'>
         <div className="flex flex-col  size-full">
           {!feching && <h1 className="text-lg text-center">{message}</h1>}
           {isLoading ? null : <h1 className="text-lg text-center">{feching?.message}</h1>}

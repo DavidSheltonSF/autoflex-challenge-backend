@@ -30,7 +30,7 @@ export function AddProductModal() {
 
   return (
     isOpen && (
-      <BaseModal close={() => setIsOpen(false)} height="auto" width="80vw">
+      <BaseModal close={() => setIsOpen(false)} additionalStyles="h-auto w-[80vw] min-lg:w-[400px]">
         <div className="flex flex-col gap-[16px] justify-center size-full">
           {formState && (
             <span className="w-full text-center font-bold">
@@ -42,7 +42,7 @@ export function AddProductModal() {
           <form className="flex flex-col gap-[16px] size-full">
             <input
               name="code"
-              className="w-full border rounded-md py-[4px] px-[8px]"
+              className="w-full min-lg:w-[116px] border rounded-md py-[4px] px-[8px]"
               placeholder="code"
             />
             <input
@@ -50,21 +50,23 @@ export function AddProductModal() {
               className="w-full border rounded-md py-[4px] px-[8px]"
               placeholder="name"
             />
-            <input
-              name="price"
-              type="number"
-              className="w-full border rounded-md py-[4px] px-[8px]"
-              placeholder="price"
-            />
-            <input
-              name="quantity"
-              type="number"
-              className="w-full border rounded-md py-[4px] px-[8px]"
-              placeholder="quantity"
-            />
+            <div className="flex flex-col min-lg:flex-row gap-[16px]">
+              <input
+                name="price"
+                type="number"
+                className="w-full border rounded-md py-[4px] px-[8px]"
+                placeholder="price"
+              />
+              <input
+                name="quantity"
+                type="number"
+                className="w-full border rounded-md py-[4px] px-[8px]"
+                placeholder="quantity"
+              />
+            </div>
             <button
               formAction={handleSubmit}
-              className="w-full bg-color-primary text-color-white py-[4px] rounded-md"
+              className="w-full min-lg:w-[156px] min-lg:ml-auto bg-color-primary text-color-white py-[4px] rounded-md cursor-pointer"
             >
               Add Product
             </button>
