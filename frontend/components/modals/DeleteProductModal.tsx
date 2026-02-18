@@ -7,11 +7,7 @@ import { fetchDeleteProductById } from '@/services/fetchDeleteProductById';
 import { FechingState } from '@/types/FechingState';
 import { RequestStatus } from '@/types/RequestStatus';
 
-interface Props {
-  message: string;
-}
-
-export function DeleteProductModal({ message }: Props) {
+export function DeleteProductModal() {
   const [feching, setFeching] = useState<FechingState<null> | null>(null);
   const context = useContext(DeleteProductModalContext);
   if (!context) {
@@ -39,7 +35,9 @@ export function DeleteProductModal({ message }: Props) {
         additionalStyles="h-[25vh] w-[60vw] min-lg:w-[332px]"
       >
         <div className="flex flex-col  size-full">
-          {!feching && <h1 className="text-lg text-center">{message}</h1>}
+          {!feching && (
+            <h1 className="text-lg text-center">Are you sure you want to delete this product?</h1>
+          )}
           {isLoading ? null : <h1 className="text-lg text-center">{feching?.message}</h1>}
           <div className="flex justify-between items-end size-full">
             <Button

@@ -31,7 +31,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ModalsProvider>
           <UpdateProductModal />
-          <DeleteProductModal message="Are you sure you want to delete this product?" />
+          <DeleteProductModal />
           <div>{children}</div>
         </ModalsProvider>
       </body>
