@@ -7,6 +7,7 @@ import { Product } from '@/types/Product';
 import { FechingState } from '@/types/FechingState';
 import { RequestStatus } from '@/types/RequestStatus';
 import { WithId } from '@/types/WithId';
+import { SearchBar } from '../SearchBar';
 
 export function ProductsSection() {
   const [fetching, setFeching] = useState<FechingState<WithId<Product>[]>>({
@@ -31,12 +32,7 @@ export function ProductsSection() {
   }, []);
   return (
     <div className="flex flex-col gap-[24px]">
-      <div>
-        <div className="flex h-[40px] w-full bg-white rounded-xl border">
-          <input className="w-full px-[8px]" type="text" placeholder="Search for a product..." />
-        </div>
-      </div>
-
+      <SearchBar />
       <ProductsList products={fetching.data || []} isLoading={isLoading} />
     </div>
   );
