@@ -25,7 +25,7 @@ export function ProductCard({ id, code, name, price, quantity }: Props) {
   const setProductIdToDelete = deleteModalContext.setProductId;
 
   return (
-    <article className="flex flex-col gap-[16px] w-full bg-white border border-black/80 p-[16px] rounded-lg">
+    <article className="flex flex-col gap-[16px] w-full min-lg:w-[400px] wbg-white border border-black/80 p-[16px] rounded-lg">
       <DeleteProductModal message="Are you sure you want to delete this product?" />
       <header className="flex justify-between">
         <h1 className="text-2xl">{name}</h1>
@@ -44,9 +44,8 @@ export function ProductCard({ id, code, name, price, quantity }: Props) {
       </header>
       <div className="flex flex-col gap-[8px] text-lg">
         <LabelValue label="code" value={code} />
-        <LabelValue label="name" value={name} />
         <LabelValue label="price" value={price} />
-        <LabelValue label="quantity" value={quantity} />
+        <div className="flex flex-col gap-[8px] min-lg:flex-row justify-between"></div>
       </div>
     </article>
   );
