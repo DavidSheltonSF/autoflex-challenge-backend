@@ -13,14 +13,15 @@ export function DeleteProductModal() {
   if (!context) {
     throw Error('Missing AddProductModalContext');
   }
-  const { isOpen, setIsOpen, productId } = context;
+  const { modalState, setModalState } = context;
+  const {isOpen, entityId} = modalState
 
   const isLoading = feching?.status === RequestStatus.loading ? true : false;
 
   async function handleDeleteProduct() {
     try {
       setFeching({ status: RequestStatus.loading });
-      await fetchDeleteProductById(String(productId));
+      await fetchDeleteProductById(entityId || "");
       setFeching({ status: RequestStatus.ok, message: `Product deleted successfuly` });
     } catch (error) {
       console.log(error);
@@ -32,7 +33,7 @@ export function DeleteProductModal() {
     isOpen && (
       <BaseModal
         isLoading={isLoading}
-        close={() => setIsOpen(false)}
+        close={() => setModalState({ isOpen: false })}
         additionalStyles="h-[25vh] w-[60vw] min-lg:w-[332px]"
       >
         <div className="flex flex-col  size-full">
@@ -42,7 +43,7 @@ export function DeleteProductModal() {
           {isLoading ? null : <h1 className="text-lg text-center">{feching?.message}</h1>}
           <div className="flex justify-between items-end size-full">
             <Button
-              onClick={() => setIsOpen(false)}
+              onClick={() => setModalState({ isOpen: false })}
               backgroundColor="#9e9e9e"
               color="white"
               label="Cancel"

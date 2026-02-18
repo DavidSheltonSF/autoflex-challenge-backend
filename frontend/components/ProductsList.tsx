@@ -33,7 +33,7 @@ export function ProductsList({ products, isLoading }: Props) {
     throw Error('Missing AddProductModalContext');
   }
 
-  const { isOpen, setIsOpen } = context;
+  const { setModalState } = context;
 
   return (
     <div className="flex flex-col gap-[24px] w-full">
@@ -41,7 +41,7 @@ export function ProductsList({ products, isLoading }: Props) {
         label="Add new Product"
         width="180px"
         onClick={() => {
-          setIsOpen(!isOpen);
+          setModalState({ isOpen: true });
         }}
       />
       <AddProductModal />

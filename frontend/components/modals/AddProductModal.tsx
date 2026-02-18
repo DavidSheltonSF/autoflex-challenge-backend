@@ -13,7 +13,9 @@ export function AddProductModal() {
   if (!context) {
     throw Error('Missing AddProductModalContext');
   }
-  const { isOpen, setIsOpen } = context;
+
+  const {modalState, setModalState} = context;
+  const {isOpen} = modalState;
 
   async function handleSubmit(formData: FormData) {
     setFormState(await addProduct(formData));
@@ -31,7 +33,7 @@ export function AddProductModal() {
 
   return (
     isOpen && (
-      <BaseModal close={() => setIsOpen(false)} additionalStyles="h-auto w-[80vw] min-lg:w-[400px]">
+      <BaseModal close={() => setModalState({isOpen: false})} additionalStyles="h-auto w-[80vw] min-lg:w-[400px]">
         <div className="flex flex-col gap-[16px] justify-center size-full">
           {formState && (
             <span className="w-full text-center font-bold">

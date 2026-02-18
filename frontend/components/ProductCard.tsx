@@ -11,10 +11,9 @@ interface Props {
   code: string;
   name: string;
   price: number;
-  quantity: number;
 }
 
-export function ProductCard({ id, code, name, price, quantity }: Props) {
+export function ProductCard({ id, code, name, price }: Props) {
   const deleteModalContext = useContext(DeleteProductModalContext);
   if (!deleteModalContext) {
     throw Error('Missing AddProductModalContext');
@@ -25,10 +24,8 @@ export function ProductCard({ id, code, name, price, quantity }: Props) {
     throw Error('Missing UpdateProductModalContext');
   }
 
-  const setDeleteModalIsOpen = deleteModalContext.setIsOpen;
-  const setProductIdToDelete = deleteModalContext.setProductId;
-  const setUpdateModalIsOpen = updateModalContext.setIsOpen;
-  const setProductIdToUpdate = updateModalContext.setProductId;
+  const setDeleteModalState = deleteModalContext.setModalState;
+  const setUpdateModalState = updateModalContext.setModalState;
 
   return (
     <article className="flex flex-col gap-[16px] w-full min-lg:w-[400px] wbg-white border border-black/80 p-[16px] rounded-lg">
@@ -38,8 +35,7 @@ export function ProductCard({ id, code, name, price, quantity }: Props) {
           <button
             className="cursor-pointer"
             onClick={() => {
-              setProductIdToUpdate(String(id));
-              setUpdateModalIsOpen(true);
+              setUpdateModalState({ isOpen: true, entityId: id });
             }}
           >
             <EditIcon width="32px" height="32px" />
@@ -47,8 +43,7 @@ export function ProductCard({ id, code, name, price, quantity }: Props) {
           <button
             className="cursor-pointer"
             onClick={() => {
-              setProductIdToDelete(id);
-              setDeleteModalIsOpen(true);
+              setDeleteModalState({ isOpen: true, entityId: id });
             }}
           >
             <TrashIcon width="32px" height="32px" />

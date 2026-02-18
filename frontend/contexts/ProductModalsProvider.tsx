@@ -3,36 +3,36 @@ import { ReactNode, useState } from 'react';
 import { AddProductModalContext } from './AddProductModalContext';
 import { DeleteProductModalContext } from './DeleteProductModalContext';
 import { UpdateProductModalContext } from './UpdateProductModalContext';
+import { ModalState } from '@/types/ModalState';
 
 interface Props {
   children: ReactNode;
 }
 
 export function ProductModalsProvider({ children }: Props) {
-  const [addModalIsOpen, setAddModalIsOpen] = useState(false);
-  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
-  const [productIdToDelete, setPRoductIdToDelete] = useState<string | null>(null);
-  const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
-  const [productIdToUpdate, setProductIdToUpdate] = useState<string | null>(null);
-
+  const [addModalState, setAddModalState] = useState<ModalState>({ isOpen: false });
+  const [deleteModalState, setDeleteModalState] = useState<ModalState>({
+    isOpen: false,
+  });
+  const [updateModalState, setUpdateModalState] = useState<ModalState>({
+    isOpen: false,
+  });
   return (
     <UpdateProductModalContext
       value={{
-        isOpen: updateModalIsOpen,
-        setIsOpen: setUpdateModalIsOpen,
-        productId: productIdToUpdate,
-        setProductId: setProductIdToUpdate,
+        modalState: updateModalState,
+        setModalState: setUpdateModalState,
       }}
     >
       <DeleteProductModalContext
         value={{
-          isOpen: deleteModalIsOpen,
-          setIsOpen: setDeleteModalIsOpen,
-          productId: productIdToDelete,
-          setProductId: setPRoductIdToDelete,
+          modalState: deleteModalState,
+          setModalState: setDeleteModalState,
         }}
       >
-        <AddProductModalContext value={{ isOpen: addModalIsOpen, setIsOpen: setAddModalIsOpen }}>
+        <AddProductModalContext
+          value={{ modalState: addModalState, setModalState: setAddModalState }}
+        >
           {children}
         </AddProductModalContext>
       </DeleteProductModalContext>

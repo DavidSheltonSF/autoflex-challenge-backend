@@ -16,7 +16,9 @@ export function UpdateProductModal() {
   if (!context) {
     throw Error('Missing UpdateProductModalContext');
   }
-  const { isOpen, setIsOpen, productId } = context;
+  const { modalState, setModalState } = context;
+
+  const { isOpen, entityId } = modalState;
 
   useEffect(() => {
     function cleanStates() {
@@ -27,7 +29,7 @@ export function UpdateProductModal() {
     async function getProductById() {
       try {
         setFetchProductState({ status: RequestStatus.loading });
-        const product = await fetchProductById(productId || '');
+        const product = await fetchProductById(entityId || '');
         await new Promise((resolve) => setTimeout(resolve, 3000));
         setFetchProductState({ status: RequestStatus.ok, data: product });
       } catch (error) {
@@ -47,7 +49,7 @@ export function UpdateProductModal() {
   async function handleSubmit(formData: FormData) {
     try {
       setFetchProductState({ status: RequestStatus.loading });
-      const updatedProduct = await fetchUpdateProduct(productId || '', formData);
+      const updatedProduct = await fetchUpdateProduct(entityId || '', formData);
       setFetchProductState({
         status: RequestStatus.ok,
         data: updatedProduct,
@@ -65,7 +67,7 @@ export function UpdateProductModal() {
     isOpen && (
       <BaseModal
         isLoading={productIsLoading}
-        close={() => setIsOpen(false)}
+        close={() => setModalState({isOpen: false})}
         additionalStyles="h-auto w-[80vw] min-lg:w-[400px]"
       >
         <div className="flex flex-col gap-[16px] justify-center size-full">
