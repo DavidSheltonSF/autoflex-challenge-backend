@@ -2,7 +2,7 @@
 import { BaseModal } from './BaseModal';
 import { useContext, useEffect, useState } from 'react';
 import { FechingState } from '@/types/FechingState';
-import { CommodityForm } from '../CommodityForm';
+import { CommodityForm } from '../forms/CommodityForm';
 import { UpdateCommodityModalContext } from '@/contexts/commodities/UpdateCommodityModalContext';
 import { Commodity } from '@/types/Commodity';
 import { fetchAddCommodity } from '@/services/fetchAddCommodity';

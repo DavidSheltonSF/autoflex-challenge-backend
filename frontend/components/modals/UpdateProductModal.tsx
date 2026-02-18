@@ -2,7 +2,7 @@
 import { BaseModal } from './BaseModal';
 import { useContext, useEffect, useState } from 'react';
 import { FechingState } from '@/types/FechingState';
-import { ProductForm } from '../ProductForm';
+import { ProductForm } from '../forms/ProductForm';
 import { UpdateProductModalContext } from '@/contexts/UpdateProductModalContext';
 import { Product } from '@/types/Product';
 import { fetchProductById } from '@/services/fetchProductById';

@@ -4,7 +4,7 @@ import { BaseModal } from './BaseModal';
 import { useContext, useEffect, useState } from 'react';
 import { FechingState } from '@/types/FechingState';
 import { AddCommodityModalContext } from '@/contexts/commodities/AddCommodityModalContext';
-import { CommodityForm } from '../CommodityForm';
+import { CommodityForm } from '../forms/CommodityForm';
 
 export function AddCommodityModal() {
   const [formState, setFormState] = useState<FechingState<null> | null>(null);

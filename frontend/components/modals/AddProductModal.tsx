@@ -4,7 +4,7 @@ import { BaseModal } from './BaseModal';
 import { useContext, useEffect, useState } from 'react';
 import { FechingState } from '@/types/FechingState';
 import { AddProductModalContext } from '@/contexts/AddProductModalContext';
-import { ProductForm } from '../ProductForm';
+import { ProductForm } from '../forms/ProductForm';
 
 export function AddProductModal() {
   const [formState, setFormState] = useState<FechingState<null> | null>(null);
@@ -14,8 +14,8 @@ export function AddProductModal() {
     throw Error('Missing AddProductModalContext');
   }
 
-  const {modalState, setModalState} = context;
-  const {isOpen} = modalState;
+  const { modalState, setModalState } = context;
+  const { isOpen } = modalState;
 
   async function handleSubmit(formData: FormData) {
     setFormState(await addProduct(formData));
@@ -33,7 +33,10 @@ export function AddProductModal() {
 
   return (
     isOpen && (
-      <BaseModal close={() => setModalState({isOpen: false})} additionalStyles="h-auto w-[80vw] min-lg:w-[400px]">
+      <BaseModal
+        close={() => setModalState({ isOpen: false })}
+        additionalStyles="h-auto w-[80vw] min-lg:w-[400px]"
+      >
         <div className="flex flex-col gap-[16px] justify-center size-full">
           {formState && (
             <span className="w-full text-center font-bold">
@@ -42,7 +45,7 @@ export function AddProductModal() {
               </p>
             </span>
           )}
-          <ProductForm formAction={handleSubmit} buttonLabel='Add Product'/>
+          <ProductForm formAction={handleSubmit} buttonLabel="Add Product" />
         </div>
       </BaseModal>
     )
