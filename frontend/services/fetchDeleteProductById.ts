@@ -1,4 +1,4 @@
-export async function fetchDeleteProductById(id: number) {
+export async function fetchDeleteProductById(id: string) {
   const response = await fetch(`http://localhost:3002/products/${id}`, {
     method: 'DELETE',
   });

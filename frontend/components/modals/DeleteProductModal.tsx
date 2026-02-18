@@ -23,7 +23,7 @@ export function DeleteProductModal({ message }: Props) {
   async function handleDeleteProduct() {
     try {
       setFeching({ status: RequestStatus.loading });
-      await fetchDeleteProductById(productId || 0);
+      await fetchDeleteProductById(String(productId));
       setFeching({ status: RequestStatus.ok, message: `Product deleted successfuly` });
     } catch (error) {
       console.log(error);
@@ -33,7 +33,10 @@ export function DeleteProductModal({ message }: Props) {
 
   return (
     isOpen && (
-      <BaseModal close={() => setIsOpen(false)} additionalStyles='h-[25vh] w-[60vw] min-lg:w-[332px]'>
+      <BaseModal
+        close={() => setIsOpen(false)}
+        additionalStyles="h-[25vh] w-[60vw] min-lg:w-[332px]"
+      >
         <div className="flex flex-col  size-full">
           {!feching && <h1 className="text-lg text-center">{message}</h1>}
           {isLoading ? null : <h1 className="text-lg text-center">{feching?.message}</h1>}
