@@ -30,7 +30,6 @@ export function UpdateProductModal() {
       try {
         setFetchProductState({ status: RequestStatus.loading });
         const product = await fetchProductById(entityId || '');
-        await new Promise((resolve) => setTimeout(resolve, 3000));
         setFetchProductState({ status: RequestStatus.ok, data: product });
       } catch (error) {
         console.log(error);
@@ -67,7 +66,7 @@ export function UpdateProductModal() {
     isOpen && (
       <BaseModal
         isLoading={productIsLoading}
-        close={() => setModalState({isOpen: false})}
+        close={() => setModalState({ isOpen: false })}
         additionalStyles="h-auto w-[80vw] min-lg:w-[400px]"
       >
         <div className="flex flex-col gap-[16px] justify-center size-full">
