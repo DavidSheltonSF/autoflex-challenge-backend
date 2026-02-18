@@ -9,14 +9,21 @@ interface Props {
 }
 
 export function ProductModalsProvider({ children }: Props) {
-  const [addProductModalIsOpen, setAddProductModalIsOpen] = useState(false);
+  const [addModalIsOpen, setAddModalIsOpen] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [productIdToDelete, setPRoductIdToDelete] = useState<string | null>(null);
   const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
   const [productIdToUpdate, setProductIdToUpdate] = useState<string | null>(null);
 
   return (
-    <UpdateProductModalContext value={{isOpen: updateModalIsOpen, setIsOpen: setUpdateModalIsOpen, productId: productIdToUpdate, setProductId: setProductIdToUpdate}}>
+    <UpdateProductModalContext
+      value={{
+        isOpen: updateModalIsOpen,
+        setIsOpen: setUpdateModalIsOpen,
+        productId: productIdToUpdate,
+        setProductId: setProductIdToUpdate,
+      }}
+    >
       <DeleteProductModalContext
         value={{
           isOpen: deleteModalIsOpen,
@@ -25,9 +32,7 @@ export function ProductModalsProvider({ children }: Props) {
           setProductId: setPRoductIdToDelete,
         }}
       >
-        <AddProductModalContext
-          value={{ isOpen: addProductModalIsOpen, setIsOpen: setAddProductModalIsOpen }}
-        >
+        <AddProductModalContext value={{ isOpen: addModalIsOpen, setIsOpen: setAddModalIsOpen }}>
           {children}
         </AddProductModalContext>
       </DeleteProductModalContext>
