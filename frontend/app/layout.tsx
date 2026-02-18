@@ -6,6 +6,7 @@ import { UpdateProductModal } from '@/components/modals/UpdateProductModal';
 import { DeleteProductModal } from '@/components/modals/DeleteProductModal';
 import { AddCommodityModal } from '@/components/modals/AddCommodityModal';
 import { ModalsProvider } from '@/contexts/ModalsProvider';
+import { AddProductModal } from '@/components/modals/AddProductModal';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -33,6 +34,7 @@ export default function RootLayout({
         <ModalsProvider>
           <UpdateProductModal />
           <DeleteProductModal />
+          <AddProductModal/>
           <AddCommodityModal />
           <div>{children}</div>
         </ModalsProvider>
