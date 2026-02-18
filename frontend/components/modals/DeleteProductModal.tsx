@@ -31,6 +31,7 @@ export function DeleteProductModal() {
   return (
     isOpen && (
       <BaseModal
+        isLoading={isLoading}
         close={() => setIsOpen(false)}
         additionalStyles="h-[25vh] w-[60vw] min-lg:w-[332px]"
       >
