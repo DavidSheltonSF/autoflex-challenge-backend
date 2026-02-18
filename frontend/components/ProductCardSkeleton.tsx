@@ -3,7 +3,7 @@ import { TrashIcon } from './icons/TrashIcon';
 
 export function ProductCardSkelton() {
   return (
-    <article className="flex flex-col gap-[16px] w-full bg-white border border-black/80 p-[16px] rounded-lg">
+    <article className="flex flex-col gap-[16px] w-full min-lg:w-[400px] wbg-white border border-black/80 p-[16px] rounded-lg">
       <header className="flex justify-between">
         <span className="h-[32px] w-[100px] bg-gray-300  animate-pulse"></span>
         <div className="flex gap-[16px]">

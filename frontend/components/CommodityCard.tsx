@@ -11,7 +11,7 @@ interface Props {
 
 export function CommodityCard({ code, name, quantity }: Props) {
   return (
-    <article className="flex flex-col gap-[16px] w-full bg-white border border-black/80 p-[16px] rounded-lg">
+    <article className="flex flex-col gap-[16px] w-full min-lg:w-[400px] wbg-white border border-black/80 p-[16px] rounded-lg">
       <header className="flex justify-between">
         <h1 className="text-2xl">{name}</h1>
         <div className="flex gap-[16px]">
