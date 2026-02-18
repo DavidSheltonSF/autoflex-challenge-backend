@@ -2,7 +2,6 @@ import { fetchDeleteProductById } from '@/services/fetchDeleteProductById';
 import { EditIcon } from './icons/EditIcon';
 import { TrashIcon } from './icons/TrashIcon';
 import { LabelValue } from './LabelValue';
-import { DeleteProductModal } from './modals/DeleteProductModal';
 import { useContext } from 'react';
 import { DeleteProductModalContext } from '@/contexts/DeleteProductModalContext';
 import { UpdateProductModalContext } from '@/contexts/UpdateProductModalContext';
@@ -33,7 +32,6 @@ export function ProductCard({ id, code, name, price, quantity }: Props) {
 
   return (
     <article className="flex flex-col gap-[16px] w-full min-lg:w-[400px] wbg-white border border-black/80 p-[16px] rounded-lg">
-      <DeleteProductModal message="Are you sure you want to delete this product?" />
       <header className="flex justify-between">
         <h1 className="text-2xl">{name}</h1>
         <div className="flex gap-[16px]">

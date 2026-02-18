@@ -1,3 +1,4 @@
+'use client';
 import { useContext, useState } from 'react';
 import { BaseModal } from './BaseModal';
 import { DeleteProductModalContext } from '@/contexts/DeleteProductModalContext';

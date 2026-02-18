@@ -4,6 +4,7 @@ import './styles/globals.css';
 import './styles/animations.css';
 import { ModalsProvider } from '@/contexts/ModalsProvider';
 import { UpdateProductModal } from '@/components/modals/UpdateProductModal';
+import { DeleteProductModal } from '@/components/modals/DeleteProductModal';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -30,6 +31,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ModalsProvider>
           <UpdateProductModal />
+          <DeleteProductModal message="Are you sure you want to delete this product?" />
           <div>{children}</div>
         </ModalsProvider>
       </body>
