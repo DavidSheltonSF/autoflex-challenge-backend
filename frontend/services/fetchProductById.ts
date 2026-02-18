@@ -1,4 +1,7 @@
-export async function fetchProductById(id: string) {
+import { Product } from '@/types/Product';
+import { WithId } from '@/types/WithId';
+
+export async function fetchProductById(id: string): Promise<WithId<Product>> {
   const response = await fetch(`http://localhost:3002/products/${id}`);
 
   if (!response.ok) {
