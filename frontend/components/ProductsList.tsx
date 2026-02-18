@@ -2,13 +2,14 @@
 import { Product } from '@/types/Product';
 import { ProductCard } from './ProductCard';
 import { AddButton } from './AddButton';
-import { AddProductModalContext } from '@/contexts/AddProductModalContext';
 import { useContext } from 'react';
 import { AddProductModal } from './modals/AddProductModal';
 import { ProductCardSkelton } from './ProductCardSkeleton';
+import { AddProductModalContext } from '@/contexts/AddProductModalContext';
+import { WithId } from '@/types/WithId';
 
 interface Props {
-  products: Product[];
+  products: WithId<Product>[];
   isLoading: boolean;
 }
 
