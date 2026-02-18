@@ -3,7 +3,6 @@ import { Product } from '@/types/Product';
 import { ProductCard } from './ProductCard';
 import { AddButton } from './AddButton';
 import { useContext } from 'react';
-import { AddProductModal } from './modals/AddProductModal';
 import { CardSkeleton } from './CardSkeleton';
 import { AddProductModalContext } from '@/contexts/AddProductModalContext';
 import { WithId } from '@/types/WithId';
@@ -44,7 +43,6 @@ export function ProductsList({ products, isLoading }: Props) {
           setModalState({ isOpen: true });
         }}
       />
-      <AddProductModal />
       <div className="flex flex-col gap-[24px]">
         {products.length === 0 && (
           <div className="text-2xl text-center">
