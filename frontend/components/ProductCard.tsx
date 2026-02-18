@@ -5,9 +5,10 @@ import { LabelValue } from './LabelValue';
 import { DeleteProductModal } from './modals/DeleteProductModal';
 import { useContext } from 'react';
 import { DeleteProductModalContext } from '@/contexts/DeleteProductModalContext';
+import { UpdateProductModalContext } from '@/contexts/UpdateProductModalContext';
 
 interface Props {
-  id: number;
+  id: string;
   code: string;
   name: string;
   price: number;
@@ -20,9 +21,15 @@ export function ProductCard({ id, code, name, price, quantity }: Props) {
     throw Error('Missing AddProductModalContext');
   }
 
-  const setDeleteModalIsOpen = deleteModalContext.setIsOpen;
+  const updateModalContext = useContext(UpdateProductModalContext);
+  if (!updateModalContext) {
+    throw Error('Missing UpdateProductModalContext');
+  }
 
+  const setDeleteModalIsOpen = deleteModalContext.setIsOpen;
   const setProductIdToDelete = deleteModalContext.setProductId;
+  const setUpdateModalIsOpen = updateModalContext.setIsOpen;
+  const setProductIdToUpdate = updateModalContext.setProductId;
 
   return (
     <article className="flex flex-col gap-[16px] w-full min-lg:w-[400px] wbg-white border border-black/80 p-[16px] rounded-lg">
@@ -30,7 +37,15 @@ export function ProductCard({ id, code, name, price, quantity }: Props) {
       <header className="flex justify-between">
         <h1 className="text-2xl">{name}</h1>
         <div className="flex gap-[16px]">
-          <EditIcon width="32px" height="32px" />
+          <button
+            className="cursor-pointer"
+            onClick={() => {
+              setProductIdToUpdate(String(id));
+              setUpdateModalIsOpen(true);
+            }}
+          >
+            <EditIcon width="32px" height="32px" />
+          </button>
           <button
             className="cursor-pointer"
             onClick={() => {
