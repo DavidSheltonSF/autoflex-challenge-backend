@@ -8,9 +8,8 @@ export async function addProduct(formData: FormData): Promise<FechingState<null>
     const code = formData.get('code');
     const name = formData.get('name');
     const price = formData.get('price');
-    const quantity = formData.get('quantity');
 
-    if (!code || !name || !price || !quantity) {
+    if (!code || !name || !price) {
       return { status: RequestStatus.error, message: 'Missing required fields' };
     }
 
