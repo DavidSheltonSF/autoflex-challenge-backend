@@ -27,8 +27,8 @@ export function CommodityCard({ id, code, name, quantity }: Props) {
   const setUpdateModalState = updateModalContext.setModalState;
 
   return (
-    <article className="flex flex-col gap-[16px] w-full min-lg:w-[400px] wbg-white border border-black/80 p-[16px] rounded-lg">
-      <header className="flex justify-between">
+    <article className="flex flex-col justify-start w-full min-lg:w-[400px] wbg-white border border-black/80 rounded-lg overflow-hidden">
+      <header className="flex justify-between border-b px-[16px] py-[8px] bg-color-primary text-color-white">
         <h1 className="text-2xl">{name}</h1>
         <div className="flex gap-[16px]">
           <button
@@ -37,7 +37,7 @@ export function CommodityCard({ id, code, name, quantity }: Props) {
               setUpdateModalState({ isOpen: true, entityId: id });
             }}
           >
-            <EditIcon width="32px" height="32px" />
+            <EditIcon width="32px" height="32px" color="var(--color-white)" />
           </button>
           <button
             className="cursor-pointer"
@@ -45,11 +45,11 @@ export function CommodityCard({ id, code, name, quantity }: Props) {
               setDeleteModalState({ isOpen: true, entityId: id });
             }}
           >
-            <TrashIcon width="32px" height="32px" />
+            <TrashIcon width="32px" height="32px" color="var(--color-white)" />
           </button>
         </div>
       </header>
-      <div className="flex flex-col gap-[8px] text-lg">
+      <div className="flex flex-col gap-[8px] text-lg p-[16px] cursor-pointer size-full">
         <LabelValue label="code" value={code} />
         <LabelValue label="quantity" value={quantity} />
         <div className="flex flex-col gap-[8px] min-lg:flex-row justify-between"></div>
