@@ -1,4 +1,5 @@
 import { Commodity } from '@/types/Commodity';
+import { Input } from '../Input';
 
 interface Props {
   formAction: (formData: FormData) => void | Promise<void>;
@@ -10,25 +11,16 @@ export function CommodityForm({ formAction, buttonLabel, data }: Props) {
   return (
     <form className="flex flex-col gap-[16px] size-full">
       <div className="flex flex-col min-lg:flex-row gap-[16px]">
-        <input
-          name="code"
-          className="w-full min-lg:w-[116px] border rounded-md py-[4px] px-[8px]"
-          placeholder="code"
-          maxLength={8}
-          defaultValue={data?.code}
-        />
-        <input
+        <Input name="code" placeholder="code" maxLength={8} defaultValue={data?.code} />
+        <Input
           name="quantity"
           type="number"
-          className="w-full border rounded-md py-[4px] px-[8px]"
           placeholder="quantity"
-          defaultValue={data?.quantity}
+          defaultValue={String(data?.quantity)}
         />
       </div>
-
-      <input
+      <Input
         name="name"
-        className="w-full border rounded-md py-[4px] px-[8px]"
         placeholder="name"
         defaultValue={data?.name}
       />
