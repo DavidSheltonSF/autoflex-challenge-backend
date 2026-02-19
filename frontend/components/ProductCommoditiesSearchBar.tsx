@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { Input } from './Input';
 
 interface Props {
   setCommodityId: Dispatch<SetStateAction<string | null>>;
@@ -65,11 +66,10 @@ export function ProductCommoditiesSearchBar({ setCommodityId }: Props) {
   });
   return (
     <div ref={containerRef} className="relative h-[30px] w-[60%]">
-      <input
+      <Input
         ref={searchBarRef}
         onChange={(e) => setSearchText(e.target.value)}
         onFocus={() => setSearchContainerIsOpen(true)}
-        className="w-full border rounded-md"
         type="text"
       />
       <div
