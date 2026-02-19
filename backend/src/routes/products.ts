@@ -1,6 +1,5 @@
 import { Router, type Request, type Response } from 'express';
 import { dbConnection } from '..';
-import format from "pg-format"
 
 export function configProductsRoutes(router: Router) {
   router.post('/products', async (req: Request, res: Response) => {
@@ -37,6 +36,19 @@ export function configProductsRoutes(router: Router) {
       });
     }
 
+    if (!req.body) {
+      return res.status(400).json({
+        message: 'Missing request body',
+      });
+    }
+
+    const { commodityId, quantity } = req.body;
+    if (!commodityId || !quantity) {
+      return res.status(400).json({
+        message: 'Missing required fields',
+      });
+    }
+
     const productQuery = await dbConnection.query(
       `SELECT name FROM products WHERE id = ${productId}`
     );
@@ -46,26 +58,11 @@ export function configProductsRoutes(router: Router) {
       });
     }
 
-    if (!req.body) {
-      return res.status(400).json({
-        message: 'Missing request body',
-      });
-    }
-
-    const commodities: { commodityId: string; quantity: number }[] | null = req.body.commodities;
-    if (!commodities) {
-      return res.status(400).json({
-        message: 'Missing product commodities',
-      });
-    }
-
-    const mappedCommodities = commodities.map((commodity) => {
-      return [productId, commodity.commodityId, commodity.quantity];
-    });
-
-    const result = await dbConnection.query(
-      format(`INSERT INTO products_commodities (productid, commodityid, quantity) VALUEs %L RETURNING *`, mappedCommodities)
-    );
+    const query = {
+      text: `INSERT INTO products_commodities(productid, commodityid, quantity) VALUES($1, $2, $3) RETURNING *`,
+      values: [productId, commodityId, quantity],
+    };
+    const result = await dbConnection.query(query);
 
     return res.status(201).json({
       data: result.rows[0],
