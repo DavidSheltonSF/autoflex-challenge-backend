@@ -4,6 +4,7 @@ import { LabelValue } from '../LabelValue';
 import { useContext } from 'react';
 import { DeleteProductModalContext } from '@/contexts/DeleteProductModalContext';
 import { UpdateProductModalContext } from '@/contexts/UpdateProductModalContext';
+import { ProductModalContext } from '@/contexts/ProductModalContext';
 
 interface Props {
   id: string;
@@ -23,11 +24,22 @@ export function ProductCard({ id, code, name, price }: Props) {
     throw Error('Missing UpdateProductModalContext');
   }
 
+  const productModalContext = useContext(ProductModalContext);
+  if (!productModalContext) {
+    throw Error('Missing ProductModalContext');
+  }
+
   const setDeleteModalState = deleteModalContext.setModalState;
   const setUpdateModalState = updateModalContext.setModalState;
+  const setProductModalState = productModalContext.setModalState;
 
   return (
-    <article className="flex flex-col gap-[16px] w-full min-lg:w-[400px] wbg-white border border-black/80 p-[16px] rounded-lg">
+    <article
+      className="flex flex-col gap-[16px] w-full min-lg:w-[400px] wbg-white border border-black/80 p-[16px] rounded-lg"
+      onClick={() => {
+        setProductModalState({ isOpen: true, entityId: id });
+      }}
+    >
       <header className="flex justify-between">
         <h1 className="text-2xl">{name}</h1>
         <div className="flex gap-[16px]">
