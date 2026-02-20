@@ -121,24 +121,31 @@ export function configProductsRoutes(router: Router) {
   });
 
   router.get('/products/:id', async (req: Request, res: Response) => {
-    const productId = req.params.id;
-    if (!productId) {
-      return res.status(400).json({
-        message: 'Missing products id',
-      });
-    }
+   try {
+     const productId = req.params.id;
+     if (!productId) {
+       return res.status(400).json({
+         message: 'Missing products id',
+       });
+     }
 
-    const result = await productsRepository.findById(String(productId));
+     const result = await productsRepository.findById(String(productId));
 
-    if (!result) {
-      return res.status(404).json({
-        message: `Product with id ${productId} was not found`,
-      });
-    }
+     if (!result) {
+       return res.status(404).json({
+         message: `Product with id ${productId} was not found`,
+       });
+     }
 
+     return res.status(200).json({
+       data: result,
+     });
+   } catch (error: any) {
+    console.log(error);
     return res.status(200).json({
-      data: result,
+      message: error.message,
     });
+   }
   });
 
   router.put('/products/:id', async (req: Request, res: Response) => {

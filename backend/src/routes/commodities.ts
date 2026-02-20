@@ -38,23 +38,31 @@ export function configCommoditiesRoutes(router: Router) {
   });
 
   router.get('/commodities/:id', async (req: Request, res: Response) => {
-    const commodityId = req.params.id;
-    if (!commodityId) {
-      return res.status(400).json({
-        message: 'Missing commodities id',
-      });
-    }
+     try {
+       const commodityId = req.params.id;
+       if (!commodityId) {
+         return res.status(400).json({
+           message: 'Missing commodity id',
+         });
+       }
 
-    const result = await commoditiesRepository.findById(String(commodityId));
-    if (!result) {
-      return res.status(404).json({
-        message: `Commodity with id ${commodityId} was not found`,
-      });
-    }
+       const result = await commoditiesRepository.findById(String(commodityId));
 
-    return res.status(200).json({
-      data: result,
-    });
+       if (!result) {
+         return res.status(404).json({
+           message: `Commodity with id ${commodityId} was not found`,
+         });
+       }
+
+       return res.status(200).json({
+         data: result,
+       });
+     } catch (error: any) {
+       console.log(error);
+       return res.status(200).json({
+         message: error.message,
+       });
+     }
   });
 
   router.put('/commodities/:id', async (req: Request, res: Response) => {
