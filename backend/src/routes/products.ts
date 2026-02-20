@@ -1,6 +1,9 @@
 import { Router, type Request, type Response } from 'express';
 import { dbConnection } from '..';
 import { getViableProducts } from '../helpers/getViableProducts';
+import { PostgresProductsRepository } from '../repositories/products/PostgresProductsRepository';
+
+const productsRepository = new PostgresProductsRepository();
 
 export function configProductsRoutes(router: Router) {
   router.get('/availableProducts', async (req: Request, res: Response) => {
@@ -43,15 +46,14 @@ export function configProductsRoutes(router: Router) {
       });
     }
 
-    const query = {
-      text: `INSERT INTO products(code, name, price) VALUES($1, $2, $3) RETURNING *`,
-      values: [code, name, price],
-    };
-    const result = await dbConnection.query(query);
-    console.log(result);
+    const result = await productsRepository.create({
+      code,
+      name,
+      price,
+    });
 
     return res.status(201).json({
-      data: result.rows[0],
+      data: result,
     });
   });
 
@@ -97,9 +99,9 @@ export function configProductsRoutes(router: Router) {
   });
 
   router.get('/products', async (req: Request, res: Response) => {
-    const result = await dbConnection.query(`SELECT * FROM products`);
+    const result = await productsRepository.findAll();
     return res.status(200).json({
-      data: result.rows,
+      data: result,
     });
   });
 
@@ -126,22 +128,22 @@ export function configProductsRoutes(router: Router) {
       });
     }
 
-    const result = await dbConnection.query(`SELECT * FROM products WHERE id = ${productId}`);
-    const rows = result.rows;
+    const result = await productsRepository.findById(String(productId));
 
-    if (rows.length === 0) {
+    if (!result) {
       return res.status(404).json({
         message: `Product with id ${productId} was not found`,
       });
     }
 
     return res.status(200).json({
-      data: rows[0],
+      data: result,
     });
   });
 
   router.put('/products/:id', async (req: Request, res: Response) => {
     const productId = req.params.id;
+    console.log(productId)
 
     if (!productId) {
       return res.status(400).json({
@@ -162,23 +164,15 @@ export function configProductsRoutes(router: Router) {
       });
     }
 
-    const query = {
-      text: `UPDATE products SET code =  $1, name = $2, price = $3 WHERE id = ${productId} RETURNING *`,
-      values: [code, name, price],
-    };
-
-    const result = await dbConnection.query(query);
-    const rows = result.rows;
-
-    if (rows.length === 0) {
-      return res.status(404).json({
-        message: `Product with id ${productId} was not found`,
-      });
-    }
+    const result = await productsRepository.updateById(String(productId), {
+      code,
+      name,
+      price,
+    });
 
     return res.status(200).json({
       message: 'UPDATED',
-      data: rows[0],
+      data: result,
     });
   });
 
@@ -190,19 +184,11 @@ export function configProductsRoutes(router: Router) {
       });
     }
 
-    const result = await dbConnection.query(
-      `DELETE FROM products WHERE id = ${productId} RETURNING *`
-    );
-    const rows = result.rows;
+    const result = await productsRepository.deleteById(String(productId));
 
-    if (rows.length === 0) {
-      return res.status(404).json({
-        message: `Product with id ${productId} was not found`,
-      });
-    }
     return res.status(200).json({
       message: 'DELETED',
-      data: rows[0],
+      data: result,
     });
   });
 
