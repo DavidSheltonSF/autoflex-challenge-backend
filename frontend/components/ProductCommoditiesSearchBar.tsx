@@ -73,8 +73,8 @@ export function ProductCommoditiesSearchBar({ setCommodityId }: Props) {
         type="text"
       />
       <div
-        className={`absolute bg-color-white top-full right-0 w-full rounded-md overflow-hidden ${
-          searchContainerIsOpen ? 'h-auto' : 'h-0'
+        className={`absolute bg-color-white top-full right-0 w-full rounded-md overflow-y-auto shadow-[0_1px_1px_gray] ${
+          searchContainerIsOpen ? 'h-auto max-h-[100]' : 'h-0'
         }`}
       >
         <ul className="flex flex-col flex flex-col p-[8px] gap-[4px]">{renderCommodities}</ul>
