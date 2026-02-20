@@ -1,26 +1,16 @@
-import { NavItem } from './NavItem';
+import Link from 'next/link';
+import { NewNavItem } from './NewNavItem';
 
-interface Props {
-  selectedSection: number;
-  setSelectedSection: React.Dispatch<React.SetStateAction<number>>;
-}
-
-export function Navbar({ selectedSection, setSelectedSection }: Props) {
+export function NewNavbar() {
   return (
-    <nav className="flex justify-center p-[8px] bg-gray-800 text-white">
+    <nav className="flex w-full justify-center p-[8px] bg-gray-800 text-white">
       <ul className="flex gap-[12px] text-xl">
-        <NavItem
-          index={0}
-          name="products"
-          selectedSection={selectedSection}
-          setSelectedSection={setSelectedSection}
-        />
-        <NavItem
-          index={1}
-          name="commodities"
-          selectedSection={selectedSection}
-          setSelectedSection={setSelectedSection}
-        />
+        <Link href="/">
+          <NewNavItem name="products" />
+        </Link>
+        <Link href="/Commodities">
+          <NewNavItem name="commodities" />
+        </Link>
       </ul>
     </nav>
   );
