@@ -1,23 +1,12 @@
-import { CommoditiesSection } from '@/components/dynamicSections/CommoditiesSection';
 import { ProductsSection } from '@/components/dynamicSections/ProductsSection';
-import { DynamicSections } from '@/components/DynamicSections';
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-start justify-start bg-zinc-50 font-sans">
-      <main className="flex flex-col justify-start item-start size-full">
-        <div className="flex justify-center items-start w-full min-h-[90vh] py-[16px]">
-          <DynamicSections sectionsTitles={['products', 'commodities']}>
-            <div className="size-full">
-              <ProductsSection />
-            </div>
-            <div>
-              <CommoditiesSection />
-            </div>
-          </DynamicSections>
-        </div>
-        <aside className="bg-red-200 w-full h-[30vh]"></aside>
-      </main>
+    <div className="flex flex-col min-h-screen items-start justify-start bg-zinc-50 font-sans">
+      <div className='size-full flex-col px-[80px] py-[40px]'>
+        <h1 className="text-3xl font-bold my-[16px] text-black">Products</h1>
+        <ProductsSection />
+      </div>
     </div>
   );
 }
