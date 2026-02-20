@@ -14,7 +14,7 @@ export function ProductForm({ formAction, buttonLabel, data }: Props) {
         <Input name="code" placeholder="code" maxLength={8} defaultValue={data?.code} />
         <Input name="price" placeholder="price" type="number" defaultValue={String(data?.price)} />
       </div>
-      <Input name="name" placeholder="name" maxLength={8} defaultValue={data?.name} />
+      <Input name="name" placeholder="name" defaultValue={data?.name} />
       <button
         formAction={formAction}
         className="w-full min-lg:w-[156px] min-lg:ml-auto bg-color-primary text-color-white py-[4px] rounded-md cursor-pointer"
