@@ -19,7 +19,7 @@ export class PostgreHelper {
       port: Number(process.env.DATABASE_PORT),
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE,
-      ssl: true,
+      ssl: Boolean(process.env.DATABASE_SSL),
     });
 
     return this.instance;
