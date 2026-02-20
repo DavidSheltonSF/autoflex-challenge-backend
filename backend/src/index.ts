@@ -3,24 +3,26 @@ import { PostgreHelper } from './database/database';
 import cookieParser from 'cookie-parser';
 import { configRouter } from './routes/configRouter';
 import cors from 'cors';
+import { config } from 'dotenv';
+config();
 
 export const app = express();
  const allowedOrigins = [process.env.FRONTEND, 'http://192.168.0.118:3002'];
- app.use(
-   cors({
-     origin: (origin, callback) => {
-       if (!origin) return callback(null, true);
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
 
-       if (allowedOrigins.includes(origin)) {
-         return callback(null, true);
-       }
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
 
-       return callback(new Error('Not allowed by cores'));
-     },
-     credentials: true,
-     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-   })
- );
+      return callback(new Error('Not allowed by cors'));
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 app.use(configRouter());
