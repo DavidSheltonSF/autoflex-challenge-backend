@@ -13,10 +13,12 @@ interface Props {
 }
 
 export function CommoditiesList({ commodities, isLoading }: Props) {
+  const renderNotFoundMessage = (
+    <h1 className="text-center text-xl min-lg:text-start">No commodities were found</h1>
+  );
   const renderCommodities = commodities.map((commodity, index) => {
     return <CommodityCard key={index} {...commodity} />;
   });
-
   const renderSkeleton = () => {
     const skeletons = [];
 
@@ -44,12 +46,11 @@ export function CommoditiesList({ commodities, isLoading }: Props) {
         }}
       />
       <div className="flex flex-col gap-[24px]">
-        {commodities.length === 0 && (
-          <div className="text-2xl">
-            <h1>No Commodities where found</h1>
-          </div>
-        )}
-        {isLoading ? renderSkeleton() : renderCommodities}
+        {isLoading
+          ? renderSkeleton()
+          : commodities.length === 0
+          ? renderNotFoundMessage
+          : renderCommodities}
       </div>
     </div>
   );

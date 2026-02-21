@@ -13,10 +13,12 @@ interface Props {
 }
 
 export function ProductsList({ products, isLoading }: Props) {
+  const renderNotFoundMessage = (
+    <h1 className="text-center text-xl min-lg:text-start">No products were found</h1>
+  );
   const renderProducts = products.map((product, index) => {
     return <ProductCard key={index} {...product} />;
   });
-
   const renderSkeleton = () => {
     const skeletons = [];
 
@@ -44,12 +46,11 @@ export function ProductsList({ products, isLoading }: Props) {
         }}
       />
       <div className="flex flex-col gap-[24px]">
-        {products.length === 0 && (
-          <div className="text-2xl">
-            <h1>No products where found</h1>
-          </div>
-        )}
-        {isLoading ? renderSkeleton() : renderProducts}
+        {isLoading
+          ? renderSkeleton()
+          : products.length === 0
+          ? renderNotFoundMessage
+          : renderProducts}
       </div>
     </div>
   );
