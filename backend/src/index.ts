@@ -7,7 +7,7 @@ import { config } from 'dotenv';
 config();
 
 export const app = express();
- const allowedOrigins = [process.env.FRONTEND, 'http://192.168.0.118:3002'];
+const allowedOrigins = [process.env.FRONTEND];
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -32,7 +32,7 @@ export const dbConnection = PostgreHelper.getInstance();
 (async () => {
   try {
     await dbConnection.connect();
-    await dbConnection.resetTables()
+    await dbConnection.resetTables();
     console.log('Connected');
   } catch (error: any) {
     console.log(error);
