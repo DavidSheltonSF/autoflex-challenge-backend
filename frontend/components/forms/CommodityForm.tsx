@@ -11,7 +11,7 @@ export function CommodityForm({ formAction, buttonLabel, data }: Props) {
   return (
     <form className="flex flex-col gap-[16px] size-full">
       <div className="flex flex-col min-lg:flex-row gap-[16px]">
-        <Input name="code" placeholder="code" maxLength={8} defaultValue={data?.code} />
+        <Input name="code" placeholder="code" maxLength={8} minLength={8} defaultValue={data?.code} />
         <Input
           name="quantity"
           type="number"
