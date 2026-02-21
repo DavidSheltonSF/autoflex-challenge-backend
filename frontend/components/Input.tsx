@@ -11,6 +11,7 @@ interface Props {
   defaultValue?: string;
   maxLength?: number;
   minLength?: number;
+  min?: number;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onFocus?: FocusEventHandler<HTMLInputElement>;
 }
@@ -27,6 +28,7 @@ export function Input(props: Props) {
     defaultValue,
     maxLength,
     minLength,
+    min,
     onChange,
     onFocus,
   } = props;
@@ -43,6 +45,7 @@ export function Input(props: Props) {
       onFocus={onFocus}
       maxLength={maxLength}
       minLength={minLength}
+      min={min}
       style={{
         height,
         width,
