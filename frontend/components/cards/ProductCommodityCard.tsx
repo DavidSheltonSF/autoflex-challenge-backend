@@ -3,6 +3,7 @@ import { LabelValue } from '../LabelValue';
 import { Dispatch, SetStateAction, useContext } from 'react';
 import { fetchDeleteProductCommodity } from '@/services/fetchDeleteProductCommodity';
 import { ProductModalContext } from '@/contexts/ProductModalContext';
+import { captalizeString } from '@/lib/captalizeString';
 
 interface Props {
   id: string;
@@ -34,7 +35,7 @@ export function ProductCommodityCard({ id, code, name, quantity, setRerender }: 
   return (
     <article className="flex flex-col gap-[16px] w-full wbg-white border border-black/80 p-[16px] rounded-lg">
       <header className="flex justify-between">
-        <h1 className="text-xl">{name}</h1>
+        <h1 className="text-xl">{captalizeString(name)}</h1>
         <div className="flex">
           <button className="cursor-pointer" onClick={handleDelete}>
             <TrashIcon width="24px" height="24px" />

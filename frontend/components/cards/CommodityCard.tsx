@@ -4,6 +4,7 @@ import { LabelValue } from '../LabelValue';
 import { useContext } from 'react';
 import { DeleteCommodityModalContext } from '@/contexts/commodities/DeleteCommodityModalContext';
 import { UpdateCommodityModalContext } from '@/contexts/commodities/UpdateCommodityModalContext';
+import { captalizeString } from '@/lib/captalizeString';
 
 interface Props {
   id: string;
@@ -29,7 +30,7 @@ export function CommodityCard({ id, code, name, quantity }: Props) {
   return (
     <article className="flex flex-col justify-start min-md:w-[60%] min-lg:w-[400px] wbg-white border border-black/80 rounded-lg overflow-hidden">
       <header className="flex justify-between border-b px-[16px] py-[8px] bg-color-primary text-color-white">
-        <h1 className="text-2xl">{name}</h1>
+        <h1 className="text-2xl">{captalizeString(name)}</h1>
         <div className="flex gap-[16px]">
           <button
             className="cursor-pointer"
