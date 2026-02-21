@@ -16,7 +16,7 @@ interface Props {
 
 export function ProductCommoditiesList({ commodities, setRerender }: Props) {
   const [commodityId, setCommodityId] = useState<string | null>(null);
-  const [quantity, setQuantity] = useState<string>("1");
+  const [quantity, setQuantity] = useState<string>('1');
 
   const productModalContext = useContext(ProductModalContext);
   if (!productModalContext) {
@@ -38,18 +38,27 @@ export function ProductCommoditiesList({ commodities, setRerender }: Props) {
     return <ProductCommodityCard setRerender={setRerender} key={index} {...commodities} />;
   });
 
+  const readyToSubmit = commodityId && Number(quantity) > 0;
+
   return (
     <div className="flex flex-col gap-[24px] w-full">
       <div className="flex flex-col gap-[16px] py-[8px] border-t border-black/30">
         <h1 className="text-2xl">Commodities</h1>
         <div className="flex gap-[8px]">
           <ProductCommoditiesSearchBar setCommodityId={setCommodityId} />
-
-          <Input width='80px' type="number" placeholder='quantity' defaultValue={quantity} min={1} onChange={(e) => setQuantity(e.target.value)}/>
+          <Input
+            width="80px"
+            type="number"
+            defaultValue={quantity}
+            min={1}
+            onChange={(e) => setQuantity(e.target.value)}
+          />
           <Button
-            backgroundColor="var(--color-white)"
+            backgroundColor={readyToSubmit ? 'var(--color-primary)' : 'gray'}
+            color="var(--color-white)"
             label="Add"
             height="auto"
+            disabled={!readyToSubmit}
             onClick={addCommodity}
           />
         </div>
