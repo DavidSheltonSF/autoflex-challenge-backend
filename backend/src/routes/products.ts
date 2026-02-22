@@ -1,6 +1,6 @@
 import { Router, type Request, type Response } from 'express';
 import { dbConnection } from '..';
-import { getViableProducts } from '../helpers/getViableProducts';
+import { getViableProducts } from '../utils/getViableProducts';
 import { PostgresProductsRepository } from '../repositories/products/PostgresProductsRepository';
 
 const productsRepository = new PostgresProductsRepository();
