@@ -1,6 +1,8 @@
 import { ProductsRepository } from '../../repositories/products/ProductsRepository';
 import { Product } from '../../types/Product';
+import { ProductCommodityRelation } from '../../types/ProductCommodityRelation';
 import { WithId } from '../../types/WithId';
+import { validateQuantity } from '../helper/fieldsValidators';
 import { validadeProduct } from '../helper/validateProduct';
 import { IProductService } from './IProductService';
 
@@ -39,5 +41,20 @@ export class ProductService implements IProductService {
 
   async checkExistence(id: string): Promise<boolean> {
     return this.productRepository.checkExistence(id);
+  }
+
+  async addCommodity(
+    productCommodityRelation: ProductCommodityRelation
+  ): Promise<WithId<ProductCommodityRelation>> {
+    const { quantity } = productCommodityRelation;
+    validateQuantity(quantity);
+    return this.productRepository.addCommodity(productCommodityRelation);
+  }
+
+  async removeCommodity(
+    productId: string,
+    commodityId: string
+  ): Promise<WithId<ProductCommodityRelation>> {
+    return this.productRepository.removeCommodity(productId, commodityId);
   }
 }

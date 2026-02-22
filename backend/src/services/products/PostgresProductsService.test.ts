@@ -92,4 +92,34 @@ describe('Testing PostgresProductRepository', () => {
     await productService.checkExistence(id);
     expect(productRepository.checkExistenceParam?.id).toBe(id);
   });
+
+  test('should call productRepository.addCommodity with the provided data', async () => {
+    const { productService, productRepository } = mockup();
+
+    const newProductCommodity = { productId: 'prod1234', commodityId: 'comm1234', quantity: 50 };
+
+    await productService.addCommodity(newProductCommodity);
+
+    expect(productRepository.addCommodityParam?.productCommodityRelation.productId).toBe(
+      newProductCommodity.productId
+    );
+    expect(productRepository.addCommodityParam?.productCommodityRelation.commodityId).toBe(
+      newProductCommodity.commodityId
+    );
+
+    expect(productRepository.addCommodityParam?.productCommodityRelation.quantity).toBe(
+      newProductCommodity.quantity
+    );
+  });
+
+  test('should call productRepository.removeCommodity with the provided id', async () => {
+    const { productService, productRepository } = mockup();
+
+    const productId = 'prod1234';
+    const commodityId = 'comm1234';
+    await productService.removeCommodity(productId, commodityId);
+
+    expect(productRepository.removeCommodityParam?.productId).toBe(productId);
+    expect(productRepository.removeCommodityParam?.commodityId).toBe(commodityId);
+  });
 });

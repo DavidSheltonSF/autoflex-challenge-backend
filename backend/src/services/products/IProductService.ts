@@ -1,4 +1,5 @@
 import { Product } from '../../types/Product';
+import { ProductCommodityRelation } from '../../types/ProductCommodityRelation';
 import { WithId } from '../../types/WithId';
 
 export interface IProductService {
@@ -8,4 +9,11 @@ export interface IProductService {
   updateById: (id: string, product: Product) => Promise<WithId<Product> | null>;
   deleteById: (id: string) => Promise<WithId<Product> | null>;
   checkExistence: (id: string) => Promise<boolean>;
+  addCommodity: (
+    productCommodityRelation: ProductCommodityRelation
+  ) => Promise<WithId<ProductCommodityRelation>>;
+  removeCommodity: (
+    productId: string,
+    commodityId: string
+  ) => Promise<WithId<ProductCommodityRelation>>;
 }
