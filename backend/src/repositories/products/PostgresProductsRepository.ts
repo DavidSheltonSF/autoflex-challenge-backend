@@ -46,6 +46,7 @@ export class PostgresProductsRepository implements ProductsRepository {
   }
 
   async updateById(id: string, product: Product): Promise<WithId<Product>> {
+    checkIdIsNumeric(id);
     const { code, name, price } = product;
     const query = {
       text: `UPDATE products SET code =  $1, name = $2, price = $3 WHERE id = ${id} RETURNING *`,
@@ -63,6 +64,7 @@ export class PostgresProductsRepository implements ProductsRepository {
   }
 
   async deleteById(id: string): Promise<WithId<Product>> {
+    checkIdIsNumeric(id);
     const result = await dbConnection.query(`DELETE FROM products WHERE id = ${id} RETURNING *`);
     const rows = result.rows;
     const product = rows[0];
