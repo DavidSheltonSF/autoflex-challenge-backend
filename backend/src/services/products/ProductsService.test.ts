@@ -3,7 +3,7 @@ import { ProductRepositoryMock } from '../../mocks/ProductRepositoryMock';
 import { ProductService } from './ProductService';
 import { InvalidCodeError } from '../errors/InvalidCodeError';
 
-describe('Testing PostgresProductRepository', () => {
+describe('Testing ProductService', () => {
   function mockup() {
     const productRepository = new ProductRepositoryMock();
     const productService = new ProductService(productRepository);
