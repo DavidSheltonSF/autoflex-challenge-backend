@@ -85,4 +85,9 @@ export class PostgresCommoditiesRepository implements CommoditiesRepository {
       quantity: commodity.quantity,
     };
   }
+
+  async checkExistence(id: string): Promise<boolean> {
+    const result = await this.findById(id);
+    return result !== null;
+  }
 }

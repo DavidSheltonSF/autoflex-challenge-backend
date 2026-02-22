@@ -7,5 +7,5 @@ export interface CommoditiesRepository {
   create: (commodity: Commodity) => Promise<WithId<Commodity>>;
   updateById: (id: string, commodity: Commodity) => Promise<WithId<Commodity>>;
   deleteById: (id: string) => Promise<WithId<Commodity>>;
-
+  checkExistence: (id: string) => Promise<boolean>;
 }

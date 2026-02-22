@@ -30,8 +30,8 @@ describe('Testing PostgresCommodityRepository', () => {
   test('Should find all commodities', async () => {
     const { commodityRepository } = mockup();
     const values = [
-      ['5FFA5S4', 'cadeira', 25],
-      ['5F885S4', 'mesa', 250],
+      ['5FFA5S4', 'barra de ferro', 25],
+      ['5F885S4', 'barra de aço', 250],
     ];
     const insertResult = await dbConnection.query(
       format('INSERT INTO commodities (code, name, quantity) VALUES %L RETURNING *', values)
@@ -47,7 +47,7 @@ describe('Testing PostgresCommodityRepository', () => {
     const { commodityRepository } = mockup();
     const query = {
       text: 'INSERT INTO commodities (code, name, quantity) VALUES ($1, $2, $3) RETURNING *',
-      values: ['5FFA5S4', 'cadeira', 25],
+      values: ['5FFA5S4', 'barra de ferro', 25],
     };
     const insertResult = await dbConnection.query(query);
     const id = insertResult.rows[0].id;
@@ -65,7 +65,7 @@ describe('Testing PostgresCommodityRepository', () => {
 
     const newCommodity = {
       code: '5154gga',
-      name: 'cadeira de ferro',
+      name: 'perna de três',
       quantity: 500,
     };
     const result = await commodityRepository.create(newCommodity);
@@ -80,13 +80,13 @@ describe('Testing PostgresCommodityRepository', () => {
 
     const newCommodity = {
       code: '5154gga',
-      name: 'cadeira de ferro',
+      name: 'perna de três',
       quantity: 500,
     };
 
     const updatedCommodity = {
       code: '5154gga',
-      name: 'cadeira de ferro-updated',
+      name: 'perna de três-updated',
       quantity: 500,
     };
 
@@ -114,7 +114,7 @@ describe('Testing PostgresCommodityRepository', () => {
 
     const newCommodity = {
       code: '5154gga',
-      name: 'cadeira de ferro',
+      name: 'perna de três',
       quantity: 500,
     };
 
@@ -130,5 +130,29 @@ describe('Testing PostgresCommodityRepository', () => {
     const result = await dbConnection.query(`SELECT * FROM commodities WHERE id = ${id}`);
 
     expect(result.rows.length).toBe(0);
+  });
+
+  test('should return true if the commodity exist and false if it does not', async () => {
+    const { commodityRepository } = mockup();
+
+    const newCommodity = {
+      code: '5154gga',
+      name: 'perna de três',
+      quantity: 500,
+    };
+
+    const query = {
+      text: 'INSERT INTO commodities (code, name, quantity) VALUES ($1, $2, $3) RETURNING id',
+      values: [newCommodity.code, newCommodity.name, newCommodity.quantity],
+    };
+
+    const insertResult = await dbConnection.query(query);
+    const id = insertResult.rows[0].id;
+
+    const existingProduct = await commodityRepository.checkExistence(id);
+    const nonExistingProduct = await commodityRepository.checkExistence('2');
+
+    expect(existingProduct).toBeTruthy();
+    expect(nonExistingProduct).toBeFalsy();
   });
 });
