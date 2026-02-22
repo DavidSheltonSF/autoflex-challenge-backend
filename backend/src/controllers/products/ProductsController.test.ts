@@ -2,13 +2,13 @@ import { describe, expect, test } from '@jest/globals';
 import { ProductService } from '../../services/products/ProductService';
 import { ProductsController } from './ProductsController';
 import { HttpRequest } from '../types/HttpRequest';
-import { ProductRepositoryMock } from '../../tests/mocks/ProductRepositoryMock';
+import { ProductsRepositoryMock } from '../../tests/mocks/ProductsRepositoryMock';
 import { CommoditiesRepositoryMock } from '../../tests/mocks/CommoditiesRepositoryMock';
 import { CommoditiesService } from '../../services/commodities/CommoditiesService';
 
 describe('Testing ProductsController', () => {
   function mockup() {
-    const productsRepository = new ProductRepositoryMock();
+    const productsRepository = new ProductsRepositoryMock();
     const commoditiesRepository = new CommoditiesRepositoryMock();
     const productsService = new ProductService(productsRepository);
     const commoditiesService = new CommoditiesService(commoditiesRepository);

@@ -2,7 +2,7 @@ import { ProductsRepository } from '../../repositories/products/ProductsReposito
 import { Product } from '../../types/Product';
 import { ProductCommodityRelation } from '../../types/ProductCommodityRelation';
 
-export class ProductRepositoryMock implements ProductsRepository {
+export class ProductsRepositoryMock implements ProductsRepository {
   findAllWasCalled: boolean = false;
   findByIdParam: { id: string } | null = null;
   createParam: Product | null = null;
