@@ -15,11 +15,12 @@ import {
 
 export class ProductController {
   constructor(private readonly productService: IProductService) {}
-  async findAll(httpRequest: HttpRequest): Promise<findAllResponse> {
+  findAll = async (httpRequest: HttpRequest): Promise<findAllResponse> => {
     const result = await this.productService.findAll();
     return HttpResponseFactory.makeOk({ data: result });
-  }
-  async findById(httpRequest: HttpRequest): Promise<findByIdResponse> {
+  };
+
+  findById = async (httpRequest: HttpRequest): Promise<findByIdResponse> => {
     const { id } = httpRequest.params;
     const result = await this.productService.findById(id);
     if (!result) {
@@ -27,8 +28,9 @@ export class ProductController {
     }
 
     return HttpResponseFactory.makeOk({ data: result });
-  }
-  async create(httpRequest: HttpRequest): Promise<createResponse> {
+  };
+
+  create = async (httpRequest: HttpRequest): Promise<createResponse> => {
     try {
       const { body } = httpRequest;
       if (!body) {
@@ -63,12 +65,13 @@ export class ProductController {
 
       return HttpResponseFactory.makeServerError({ message: 'Something went wrong in the server' });
     }
-  }
-  async updateById(httpRequest: HttpRequest): Promise<updateByIdResponse> {
+  };
+  updateById = async (httpRequest: HttpRequest): Promise<updateByIdResponse> => {
     try {
       const { id } = httpRequest.params;
       const { body } = httpRequest;
 
+      console.log(id);
       if (!id) {
         return HttpResponseFactory.makeBadRequest({ message: 'Missing product id' });
       }
@@ -107,8 +110,8 @@ export class ProductController {
 
       return HttpResponseFactory.makeServerError({ message: 'Something went wrong in the server' });
     }
-  }
-  async deleteById(httpRequest: HttpRequest): Promise<deleteByIdResponse> {
+  };
+  deleteById = async (httpRequest: HttpRequest): Promise<deleteByIdResponse> => {
     const { id } = httpRequest.params;
 
     if (!id) {
@@ -123,5 +126,5 @@ export class ProductController {
     }
 
     return HttpResponseFactory.makeOk({ data: result });
-  }
+  };
 }
