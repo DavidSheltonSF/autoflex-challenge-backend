@@ -1,14 +1,13 @@
+import { ProductAndCommodity } from '../types/ProductAndCommodity';
+
 // Calculate how many products are possible to make with the available commodities
 export function calculateProductQuantityToMake(
-  productCommoditiesCounts: {
-    commodityquantity: number;
-    availablecommodityquantity: number;
-  }[]
+  productAndCommoditiesGroup: ProductAndCommodity[]
 ): number {
   let maxProductQuantity = 0;
 
-  productCommoditiesCounts.forEach((count) => {
-    const calc = Math.floor(count.availablecommodityquantity / count.commodityquantity);
+  productAndCommoditiesGroup.forEach((count) => {
+    const calc = Math.floor(count.availableCommodityQuantity / count.commodityQuantity);
     if (maxProductQuantity === 0) {
       maxProductQuantity = calc;
       return;
