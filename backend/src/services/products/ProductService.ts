@@ -74,8 +74,6 @@ export class ProductService implements IProductService {
 
     const groupedRowsByProductId: GroupedProductsAndCommodities =
       Object.values(groupedRowsByProductIdObj);
-    console.log(groupedRowsByProductId);
-
     const viableProducts = getViableProducts(groupedRowsByProductId);
 
     return viableProducts;
