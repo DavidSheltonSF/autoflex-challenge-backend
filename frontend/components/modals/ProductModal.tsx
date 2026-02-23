@@ -67,7 +67,7 @@ export function ProductModal() {
       <BaseModal
         isLoading={productIsLoading}
         close={() => setModalState({ isOpen: false })}
-        additionalStyles="h-auto w-[80vw] min-lg:w-[500px]"
+        additionalStyles="min-h-[448px] h-auto w-[80vw] min-lg:w-[500px]"
       >
         <div className="flex flex-col gap-[24px] justify-center size-full">
           <h1 className="text-2xl">{captalizeString(product?.name || '')}</h1>
