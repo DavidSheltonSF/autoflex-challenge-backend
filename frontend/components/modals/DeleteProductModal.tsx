@@ -1,5 +1,5 @@
 'use client';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { BaseModal } from './BaseModal';
 import { DeleteProductModalContext } from '@/contexts/DeleteProductModalContext';
 import { Button } from '../buttons/Button';
@@ -17,6 +17,25 @@ export function DeleteProductModal() {
   const { isOpen, entityId } = modalState;
 
   const isLoading = feching?.status === RequestStatus.loading ? true : false;
+
+  useEffect(() => {
+    if (!isOpen) {
+      cleanStates();
+    }
+
+    return () => {
+      cleanStates();
+    };
+  }, [modalState]);
+
+  function cleanStates() {
+    setFeching(null);
+  }
+
+  function handleCancel() {
+    cleanStates();
+    setModalState({ isOpen: false });
+  }
 
   async function handleDeleteProduct() {
     try {
@@ -42,12 +61,7 @@ export function DeleteProductModal() {
           )}
           {isLoading ? null : <h1 className="text-lg text-center">{feching?.message}</h1>}
           <div className="flex justify-between items-end size-full">
-            <Button
-              onClick={() => setModalState({ isOpen: false })}
-              backgroundColor="#9e9e9e"
-              color="white"
-              label="Cancel"
-            />
+            <Button onClick={handleCancel} backgroundColor="#9e9e9e" color="white" label="Cancel" />
             <Button
               onClick={() => {
                 handleDeleteProduct();
