@@ -93,6 +93,14 @@ describe('Testing ProductService', () => {
     expect(productRepository.checkExistenceParam?.id).toBe(id);
   });
 
+  test('should call productRepository.findAllCommodities()', async () => {
+    const { productService, productRepository } = mockup();
+
+    const productId = 'prod1234';
+    await productService.findAllCommodities(productId);
+    expect(productRepository.findAllCommoditiesParam?.productId).toBe(productId);
+  });
+
   test('should call productRepository.addCommodity with the provided data', async () => {
     const { productService, productRepository } = mockup();
 

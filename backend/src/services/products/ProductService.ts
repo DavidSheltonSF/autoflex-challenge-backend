@@ -1,4 +1,5 @@
 import { ProductsRepository } from '../../repositories/products/ProductsRepository';
+import { Commodity } from '../../types/Commodity';
 import { Product } from '../../types/Product';
 import { ProductCommodityRelation } from '../../types/ProductCommodityRelation';
 import { WithId } from '../../types/WithId';
@@ -33,6 +34,10 @@ export class ProductService implements IProductService {
 
   async checkExistence(id: string): Promise<boolean> {
     return this.productRepository.checkExistence(id);
+  }
+
+  async findAllCommodities(productId: string): Promise<WithId<Commodity>[]> {
+    return this.productRepository.findAllCommodities(productId);
   }
 
   async addCommodity(
