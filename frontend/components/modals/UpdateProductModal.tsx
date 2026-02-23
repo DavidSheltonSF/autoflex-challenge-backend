@@ -8,6 +8,7 @@ import { Product } from '@/types/Product';
 import { fetchProductById } from '@/services/fetchProductById';
 import { RequestStatus } from '@/types/RequestStatus';
 import { fetchUpdateProduct } from '@/services/fetchUpdateProduct';
+import { RerenderItemsContext } from '@/contexts/RerenderItemsContext';
 
 export function UpdateProductModal() {
   const [fetchProductState, setFetchProductState] = useState<FechingState<Product> | null>(null);
@@ -16,6 +17,12 @@ export function UpdateProductModal() {
   if (!context) {
     throw Error('Missing UpdateProductModalContext');
   }
+  const reRenderItemsContext = useContext(RerenderItemsContext);
+  if (!reRenderItemsContext) {
+    throw Error('Missing RerenderItemsContext');
+  }
+
+  const { setRenderItems } = reRenderItemsContext;
   const { modalState, setModalState } = context;
 
   const { isOpen, entityId } = modalState;
@@ -31,6 +38,7 @@ export function UpdateProductModal() {
         setFetchProductState({ status: RequestStatus.loading });
         const product = await fetchProductById(entityId || '');
         setFetchProductState({ status: RequestStatus.ok, data: product });
+        setRenderItems(true)
       } catch (error) {
         console.log(error);
         setFetchProductState({ status: RequestStatus.error, message: 'Something went wrong' });

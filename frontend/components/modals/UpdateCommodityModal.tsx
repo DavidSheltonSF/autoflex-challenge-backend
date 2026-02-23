@@ -10,6 +10,7 @@ import { RequestStatus } from '@/types/RequestStatus';
 import { fetchUpdateCommodity } from '@/services/fetchUpdateCommodity';
 import { fetchCommodityById } from '@/services/fetchCommodityById';
 import { WithId } from '@/types/WithId';
+import { RerenderItemsContext } from '@/contexts/RerenderItemsContext';
 
 export function UpdateCommodityModal() {
   const [fetchCommodityState, setFetchCommodityState] = useState<FechingState<
@@ -20,6 +21,12 @@ export function UpdateCommodityModal() {
   if (!context) {
     throw Error('Missing UpdateCommodityModalContext');
   }
+  const reRenderItemsContext = useContext(RerenderItemsContext);
+  if (!reRenderItemsContext) {
+    throw Error('Missing RerenderItemsContext');
+  }
+
+  const { setRenderItems } = reRenderItemsContext;
   const { modalState, setModalState } = context;
 
   const { isOpen, entityId } = modalState;
@@ -34,7 +41,6 @@ export function UpdateCommodityModal() {
       try {
         setFetchCommodityState({ status: RequestStatus.loading });
         const commodity = await fetchCommodityById(entityId || '');
-        console.log(commodity);
         setFetchCommodityState({
           status: RequestStatus.ok,
           data: commodity,
@@ -62,6 +68,7 @@ export function UpdateCommodityModal() {
         data: updatedCommodity,
         message: 'Commodity updated succesfuly',
       });
+      setRenderItems(true);
     } catch (error) {
       console.log(error);
       setFetchCommodityState({ status: RequestStatus.error, message: 'Something went wrong' });

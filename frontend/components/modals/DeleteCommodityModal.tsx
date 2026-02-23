@@ -6,6 +6,7 @@ import { Button } from '../buttons/Button';
 import { fetchDeleteCommodity } from '@/services/fetchDeleteCommodity';
 import { FechingState } from '@/types/FechingState';
 import { RequestStatus } from '@/types/RequestStatus';
+import { RerenderItemsContext } from '@/contexts/RerenderItemsContext';
 
 export function DeleteCommodityModal() {
   const [feching, setFeching] = useState<FechingState<null> | null>(null);
@@ -13,6 +14,12 @@ export function DeleteCommodityModal() {
   if (!context) {
     throw Error('Missing AddCommodityModalContext');
   }
+  const reRenderItemsContext = useContext(RerenderItemsContext);
+  if (!reRenderItemsContext) {
+    throw Error('Missing RerenderItemsContext');
+  }
+
+  const { setRenderItems } = reRenderItemsContext;
   const { modalState, setModalState } = context;
   const { isOpen, entityId } = modalState;
 
@@ -42,6 +49,7 @@ export function DeleteCommodityModal() {
       setFeching({ status: RequestStatus.loading });
       await fetchDeleteCommodity(entityId || '');
       setFeching({ status: RequestStatus.ok, message: `Commodity deleted successfuly` });
+      setRenderItems(true);
     } catch (error) {
       console.log(error);
       setFeching({ status: RequestStatus.error, message: 'Something went wrong' });

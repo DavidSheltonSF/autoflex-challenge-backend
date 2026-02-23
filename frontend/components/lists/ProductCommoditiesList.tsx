@@ -8,6 +8,7 @@ import { ProductModalContext } from '@/contexts/ProductModalContext';
 import { ProductCommoditiesSearchBar } from '../ProductCommoditiesSearchBar';
 import { Button } from '../buttons/Button';
 import { Input } from '../Input';
+import { RerenderItemsContext } from '@/contexts/RerenderItemsContext';
 
 interface Props {
   commodities: WithId<Commodity>[];
@@ -17,6 +18,12 @@ interface Props {
 export function ProductCommoditiesList({ commodities, setRerender }: Props) {
   const [commodityId, setCommodityId] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<string>('1');
+  const reRenderItemsContext = useContext(RerenderItemsContext);
+  if (!reRenderItemsContext) {
+    throw Error('Missing RerenderItemsContext');
+  }
+
+  const { setRenderItems } = reRenderItemsContext;
 
   const productModalContext = useContext(ProductModalContext);
   if (!productModalContext) {
@@ -29,6 +36,7 @@ export function ProductCommoditiesList({ commodities, setRerender }: Props) {
     try {
       fetchAddProductCommodity(productId || '', commodityId || '', Number(quantity));
       setRerender(true);
+      setRenderItems(true);
     } catch (error) {
       console.log(error);
     }

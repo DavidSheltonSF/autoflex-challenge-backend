@@ -4,22 +4,27 @@ import { Dispatch, SetStateAction, useContext } from 'react';
 import { fetchDeleteProductCommodity } from '@/services/fetchDeleteProductCommodity';
 import { ProductModalContext } from '@/contexts/ProductModalContext';
 import { captalizeString } from '@/lib/captalizeString';
+import { RerenderItemsContext } from '@/contexts/RerenderItemsContext';
 
 interface Props {
   id: string;
   code: string;
   name: string;
   quantity: number;
-  setRerender: Dispatch<SetStateAction<boolean>>
+  setRerender: Dispatch<SetStateAction<boolean>>;
 }
 
 export function ProductCommodityCard({ id, code, name, quantity, setRerender }: Props) {
-
   const productModalContext = useContext(ProductModalContext);
   if (!productModalContext) {
     throw Error('Missing ProductModalContext');
   }
+  const reRenderItemsContext = useContext(RerenderItemsContext);
+  if (!reRenderItemsContext) {
+    throw Error('Missing RerenderItemsContext');
+  }
 
+  const { setRenderItems } = reRenderItemsContext;
 
   const productId = productModalContext.modalState.entityId;
 
@@ -27,6 +32,7 @@ export function ProductCommodityCard({ id, code, name, quantity, setRerender }: 
     try {
       fetchDeleteProductCommodity(productId || '', id);
       setRerender(true);
+      setRenderItems(true);
     } catch (error) {
       console.log(error);
     }
