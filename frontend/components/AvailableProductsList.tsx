@@ -1,11 +1,18 @@
 'use client';
 import { fetchAvailableProducts } from '@/services/fetchAvailableProducts';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { LabelValue } from './LabelValue';
 import { ProductAndCommodity } from '@/types/ProductAndCommodity';
+import { RerenderItemsContext } from '@/contexts/RerenderItemsContext';
 
 export function AvailableProductsList() {
   const [products, setProducts] = useState<ProductAndCommodity[]>();
+  const context = useContext(RerenderItemsContext);
+  if (!context) {
+    throw Error('Missing RerenderItemsContext');
+  }
+
+  const { renderItems, setRenderItems } = context;
   useEffect(() => {
     async function loadProducts() {
       try {
@@ -15,10 +22,13 @@ export function AvailableProductsList() {
         console.log(error);
       }
     }
+    
     loadProducts();
-  }, []);
 
-  const sortedProducts = products?.sort((a, b) => b.price - a.price)
+    setRenderItems(false);
+  }, [renderItems]);
+
+  const sortedProducts = products?.sort((a, b) => b.price - a.price);
   const renderProducts = sortedProducts?.map((product, index) => {
     return (
       <article
@@ -34,5 +44,5 @@ export function AvailableProductsList() {
       </article>
     );
   });
-  return <div className='flex flex-col gap-[16px] overflow-y-auto'>{renderProducts}</div>;
+  return <div className="flex flex-col gap-[16px] overflow-y-auto">{renderProducts}</div>;
 }
