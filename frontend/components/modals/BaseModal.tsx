@@ -12,20 +12,6 @@ interface Props {
 export function BaseModal({ close, children, additionalStyles, isLoading }: Props) {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    function handleClickOut(e: MouseEvent) {
-      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-        closeModal();
-      }
-    }
-
-    document.addEventListener('click', handleClickOut);
-
-    return () => {
-      document.removeEventListener('click', handleClickOut);
-    };
-  }, []);
-
   function closeModal() {
     modalRef.current?.classList.add('fade-out-animation');
     setTimeout(() => {
